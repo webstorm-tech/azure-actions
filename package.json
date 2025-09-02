@@ -1,0 +1,12 @@
+{
+  "name": "azure-actions",
+  "description": "A monorepo containing all of the custom GitHub Actions for Azure",
+  "private": true,
+  "workspaces": [
+    "actions/*"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "lerna": "^8.2.3"
+  }
+}
