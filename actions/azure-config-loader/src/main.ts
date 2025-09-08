@@ -11,10 +11,11 @@ function toKebabCase(str: string): string {
 /**
  * Main action execution
  */
-async function run(): Promise<void> {
+export async function run(): Promise<void> {
   try {
     // Get inputs
     const environment = core.getInput("environment", { required: true });
+    
     const configFile =
       core.getInput("config-file") || ".github/config/azure-environments.yml";
 
@@ -61,7 +62,7 @@ async function run(): Promise<void> {
     }
 
     core.info(
-      `✅ Successfully loaded configuration for ${environment} environment`,
+      `✅ Successfully loaded configuration for ${environment} environment`
     );
 
     // Set summary
@@ -111,6 +112,3 @@ async function run(): Promise<void> {
     }
   }
 }
-
-// Execute the action
-run();
