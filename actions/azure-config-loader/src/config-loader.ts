@@ -49,9 +49,7 @@ export class AzureConfigLoader {
       this.config = yaml.load(fileContents) as AzureConfigFile
 
       if (!this.config || !this.config.environments) {
-        throw new Error(
-          'Invalid configuration file format: missing "environments" key'
-        )
+        throw new Error('Invalid configuration file format: missing "environments" key')
       }
 
       return this.config
@@ -94,19 +92,14 @@ export class AzureConfigLoader {
     }
 
     // Validate format of IDs (strict UUID validation for Azure)
-    const uuidRegex =
-      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
     if (!uuidRegex.test(config.client_id)) {
-      throw new Error(
-        `client_id must be a valid UUID format: ${config.client_id}`
-      )
+      throw new Error(`client_id must be a valid UUID format: ${config.client_id}`)
     }
 
     if (!uuidRegex.test(config.tenant_id)) {
-      throw new Error(
-        `tenant_id must be a valid UUID format: ${config.tenant_id}`
-      )
+      throw new Error(`tenant_id must be a valid UUID format: ${config.tenant_id}`)
     }
 
     if (!uuidRegex.test(config.subscription_id)) {

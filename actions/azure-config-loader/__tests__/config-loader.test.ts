@@ -48,9 +48,7 @@ describe('AzureConfigLoader', () => {
   })
 
   test('loads configuration successfully', () => {
-    const loader = new AzureConfigLoader(
-      '.github/config/azure-environments.yml'
-    )
+    const loader = new AzureConfigLoader('.github/config/azure-environments.yml')
     const config = loader.getEnvironmentConfig('development')
 
     expect(config.client_id).toBe(TEST_IDS.DEV_CLIENT_ID)
@@ -61,9 +59,7 @@ describe('AzureConfigLoader', () => {
   })
 
   test('loads production configuration correctly', () => {
-    const loader = new AzureConfigLoader(
-      '.github/config/azure-environments.yml'
-    )
+    const loader = new AzureConfigLoader('.github/config/azure-environments.yml')
     const config = loader.getEnvironmentConfig('production')
 
     expect(config.client_id).toBe(TEST_IDS.PROD_CLIENT_ID)
@@ -74,9 +70,7 @@ describe('AzureConfigLoader', () => {
   })
 
   test('throws error for missing environment', () => {
-    const loader = new AzureConfigLoader(
-      '.github/config/azure-environments.yml'
-    )
+    const loader = new AzureConfigLoader('.github/config/azure-environments.yml')
 
     expect(() => {
       loader.getEnvironmentConfig('staging')
@@ -84,18 +78,14 @@ describe('AzureConfigLoader', () => {
   })
 
   test('returns available environments', () => {
-    const loader = new AzureConfigLoader(
-      '.github/config/azure-environments.yml'
-    )
+    const loader = new AzureConfigLoader('.github/config/azure-environments.yml')
     const environments = loader.getAvailableEnvironments()
 
     expect(environments).toEqual(['development', 'production'])
   })
 
   test('validates configuration successfully', () => {
-    const loader = new AzureConfigLoader(
-      '.github/config/azure-environments.yml'
-    )
+    const loader = new AzureConfigLoader('.github/config/azure-environments.yml')
     const config = loader.getEnvironmentConfig('production')
 
     expect(() => {
@@ -104,9 +94,7 @@ describe('AzureConfigLoader', () => {
   })
 
   test('throws error for invalid client_id format', () => {
-    const loader = new AzureConfigLoader(
-      '.github/config/azure-environments.yml'
-    )
+    const loader = new AzureConfigLoader('.github/config/azure-environments.yml')
     const invalidConfig = {
       client_id: 'invalid-client-id',
       tenant_id: TEST_IDS.DEV_TENANT_ID,
@@ -121,9 +109,7 @@ describe('AzureConfigLoader', () => {
   })
 
   test('throws error for invalid tenant_id format', () => {
-    const loader = new AzureConfigLoader(
-      '.github/config/azure-environments.yml'
-    )
+    const loader = new AzureConfigLoader('.github/config/azure-environments.yml')
     const invalidConfig = {
       client_id: TEST_IDS.DEV_CLIENT_ID,
       tenant_id: 'not-a-uuid',
@@ -138,9 +124,7 @@ describe('AzureConfigLoader', () => {
   })
 
   test('throws error for invalid subscription_id format', () => {
-    const loader = new AzureConfigLoader(
-      '.github/config/azure-environments.yml'
-    )
+    const loader = new AzureConfigLoader('.github/config/azure-environments.yml')
     const invalidConfig = {
       client_id: TEST_IDS.DEV_CLIENT_ID,
       tenant_id: TEST_IDS.DEV_TENANT_ID,

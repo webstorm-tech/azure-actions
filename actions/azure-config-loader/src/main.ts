@@ -61,9 +61,7 @@ export async function run(): Promise<void> {
       core.exportVariable('AZURE_LOCATION', config.location)
     }
 
-    core.info(
-      `✅ Successfully loaded configuration for ${environment} environment`
-    )
+    core.info(`✅ Successfully loaded configuration for ${environment} environment`)
 
     // Set summary
     await core.summary
@@ -95,9 +93,7 @@ export async function run(): Promise<void> {
 
       // Provide helpful error messages
       if (error.message.includes('not found')) {
-        core.error(
-          'Make sure the configuration file exists and the path is correct.'
-        )
+        core.error('Make sure the configuration file exists and the path is correct.')
         core.error('The path should be relative to your repository root.')
       } else if (error.message.includes('Environment')) {
         core.error(

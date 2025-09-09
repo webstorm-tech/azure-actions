@@ -3,10 +3,7 @@ import * as coreFixtures from '../__fixtures__/core.js'
 import * as azureConfigLoaderFixtures from '../__fixtures__/config-loader.js'
 
 jest.unstable_mockModule('@actions/core', () => coreFixtures)
-jest.unstable_mockModule(
-  '../src/config-loader.js',
-  () => azureConfigLoaderFixtures
-)
+jest.unstable_mockModule('../src/config-loader.js', () => azureConfigLoaderFixtures)
 
 const { run } = await import('../src/main.js')
 
@@ -78,9 +75,7 @@ describe('Azure Config Loader Action', () => {
     expect(azureConfigLoaderFixtures.getEnvironmentConfig).toHaveBeenCalledWith(
       'production'
     )
-    expect(
-      azureConfigLoaderFixtures.getEnvironmentConfig
-    ).toHaveBeenCalledTimes(1)
+    expect(azureConfigLoaderFixtures.getEnvironmentConfig).toHaveBeenCalledTimes(1)
 
     expect(azureConfigLoaderFixtures.validateConfig).toHaveBeenCalledWith(
       productionEnvironmentConfig
