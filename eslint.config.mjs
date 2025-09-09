@@ -52,10 +52,7 @@ export default [
       sourceType: 'module',
 
       parserOptions: {
-        project: [
-          'tsconfig.eslint.base.json',
-          'actions/*/tsconfig.eslint.json'
-        ],
+        project: ['tsconfig.eslint.base.json', 'actions/*/tsconfig.eslint.json'],
         tsconfigRootDir: __dirname
       }
     },
@@ -64,10 +61,7 @@ export default [
       'import/resolver': {
         typescript: {
           alwaysTryTypes: true,
-          project: [
-            'tsconfig.eslint.base.json',
-            'actions/*/tsconfig.eslint.json'
-          ]
+          project: ['tsconfig.eslint.base.json', 'actions/*/tsconfig.eslint.json']
         }
       }
     },
