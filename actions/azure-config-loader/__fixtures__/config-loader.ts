@@ -18,7 +18,8 @@ export const validateConfig =
   >()
 
 // Mock constructor that returns an object with the mocked methods
-export const AzureConfigLoader = jest.fn((configFile: string) => ({
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const AzureConfigLoader = jest.fn((_configFile: string) => ({
   getAvailableEnvironments,
   getEnvironmentConfig,
   loadConfig,
