@@ -4,13 +4,14 @@ A monorepo containing all of the custom GitHub Actions for Azure
 
 ## Actions
 
-| Action | Coverage | Description |
-|--------|----------|-------------|
+| Action                                               | Coverage                                      | Description                                                   |
+| ---------------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------- |
 | [azure-config-loader](./actions/azure-config-loader) | ![Coverage](./badges/azure-config-loader.svg) | Loads Azure configuration from a YAML file for GitHub Actions |
 
 ## Development
 
-This repository uses [Lerna](https://lerna.js.org/) to manage multiple packages. Each action is a separate package in the `actions/` directory.
+This repository uses [Lerna](https://lerna.js.org/) to manage multiple packages. Each
+action is a separate package in the `actions/` directory.
 
 ### Getting Started
 
