@@ -12,7 +12,6 @@
     "url": "git+https://github.com/webstorm-tech/azure-actions.git"
   },
   "scripts": {
-    "bundle": "npm run format:write && npm run package",
     "ci-test": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 npx jest",
     "coverage": "npx make-coverage-badge --output-path ../../badges/azure-config-loader.svg",
     "lint": "npx eslint .",
@@ -20,7 +19,7 @@
     "package": "npx rollup --config ../../rollup.config.ts --configPlugin @rollup/plugin-typescript",
     "package:watch": "npm run package -- --watch",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 npx jest",
-    "all": "npm run format:write && npm run lint && npm run test && npm run coverage && npm run package"
+    "all": "npm run lint && npm run test && npm run coverage && npm run package"
   },
   "bugs": {
     "url": "https://github.com/webstorm-tech/azure-actions/issues"
