@@ -1,10 +1,13 @@
 # Contributing to Azure Actions
 
-Thank you for your interest in contributing to Azure Actions! This guide will help you get started with contributing to this monorepo.
+Thank you for your interest in contributing to Azure Actions! This guide will help you get
+started with contributing to this monorepo.
 
 ## Repository Structure
 
-This is a **monorepo** containing multiple GitHub Actions for Azure. Each action in the `actions/` folder is developed here but **published to separate repositories** for easy consumption by users.
+This is a **monorepo** containing multiple GitHub Actions for Azure. Each action in the
+`actions/` folder is developed here but **published to separate repositories** for easy
+consumption by users.
 
 ### Important Notes
 
@@ -24,12 +27,14 @@ This is a **monorepo** containing multiple GitHub Actions for Azure. Each action
 ### Development Setup
 
 1. **Fork and Clone** (if you don't have direct access)
+
    ```bash
    git clone https://github.com/YOUR-USERNAME/azure-actions.git
    cd azure-actions
    ```
 
 2. **Install Dependencies**
+
    ```bash
    npm ci
    ```
@@ -107,6 +112,7 @@ git push origin your-branch-name
 ```
 
 Create a pull request with:
+
 - Clear title referencing the issue
 - Detailed description of changes
 - Links to related issues
@@ -132,11 +138,13 @@ Create a pull request with:
 
 1. **Create Issue**: Describe the new action's purpose and functionality
 2. **Create Package Structure**:
+
    ```bash
    npx lerna create action-name actions/action-name
    ```
 
 3. **Follow Package Structure**:
+
    ```
    actions/action-name/
    ├── __fixtures__/           # Test fixtures
@@ -153,6 +161,7 @@ Create a pull request with:
    ```
 
 4. **Required Scripts** in `package.json`:
+
    ```json
    {
      "scripts": {
@@ -256,4 +265,5 @@ npm run lint --workspace=actions/azure-config-loader
 
 ---
 
-Thank you for contributing to Azure Actions! Your contributions help make Azure workflows easier for everyone. 🚀
+Thank you for contributing to Azure Actions! Your contributions help make Azure workflows
+easier for everyone. 🚀
