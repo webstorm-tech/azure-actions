@@ -32,7 +32,7 @@ jobs:
 
       - name: Load Azure Configuration
         id: azure-config
-        uses: ./actions/azure-config-loader
+        uses: webstorm-tech/azure-config-loader
         with:
           environment: production
 
@@ -69,7 +69,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Load Azure Configuration
-        uses: ./actions/azure-config-loader
+        uses: webstorm-tech/azure-config-loader
         with:
           environment: ${{ matrix.environment }}
 
@@ -157,7 +157,7 @@ The action provides clear error messages for common issues:
 
 ```yaml
 - name: Load Azure Configuration
-  uses: ./actions/azure-config-loader
+  uses: webstorm-tech/azure-config-loader
   with:
     environment: production
     config-file: .azure/environments.yml
@@ -167,7 +167,7 @@ The action provides clear error messages for common issues:
 
 ```yaml
 - name: Load Azure Configuration
-  uses: ./actions/azure-config-loader
+  uses: webstorm-tech/azure-config-loader
   with:
     environment: ${{ github.event.inputs.environment }}
 
@@ -191,7 +191,7 @@ The action provides clear error messages for common issues:
     fi
 
 - name: Load Azure Configuration
-  uses: ./actions/azure-config-loader
+  uses: webstorm-tech/azure-config-loader
   with:
     environment: ${{ steps.env.outputs.environment }}
 ```
@@ -207,4 +207,4 @@ The action automatically validates:
 
 ## License
 
-MIT - see [LICENSE](../../LICENSE) for details.
+MIT - see [LICENSE](LICENSE) for details.
