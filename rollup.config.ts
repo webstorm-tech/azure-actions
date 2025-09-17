@@ -12,7 +12,28 @@ const config = {
     format: 'es',
     sourcemap: true
   },
-  plugins: [typescript(), nodeResolve({ preferBuiltins: true }), commonjs()]
+  plugins: [
+    typescript(),
+    nodeResolve({
+      preferBuiltins: true,
+      exportConditions: ['import', 'module', 'default'],
+      browser: false
+    }),
+    commonjs()
+  ],
+  external: [
+    // Only exclude Node.js built-ins - everything else gets bundled
+    'fs',
+    'path',
+    'util',
+    'events',
+    'stream',
+    'crypto',
+    'os',
+    'url',
+    'assert',
+    'buffer'
+  ]
 }
 
 export default config
