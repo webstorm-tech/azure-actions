@@ -1,0 +1,58 @@
+name: Pull Request
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.detect.outputs.matrix }}
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 2
+
+      - name: Detect changed actions
+        id: detect
+        run: ./scripts/build-matrix-from-changes.sh
+
+  integration-test-job:
+    name: Integration Tests
+    needs: detect-changes
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        action: ${{ fromJson(needs.detect-changes.outputs.matrix) }}
+      fail-fast: false
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        id: setup-node
+        uses: actions/setup-node@v5
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install Dependencies
+        id: npm-install
+        run: npm install
+
+      - name: Build Actions
+        id: npm-build
+        run: npm run build
+
+      - name: Test Azure Config Loader
+        id: test-azure-config-loader
+        if: matrix.action == 'azure-config-loader'
+        uses: ./.github/test-actions/azure-config-loader
