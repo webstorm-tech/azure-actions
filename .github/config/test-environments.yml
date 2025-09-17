@@ -1,0 +1,14 @@
+environments:
+  development:
+    subscriptionId: '12345678-1234-1234-1234-123456789012'
+    resourceGroup: 'test-rg'
+    location: 'East US'
+    storageAccount: 'teststorage'
+    keyVault: 'test-kv'
+
+  staging:
+    subscriptionId: '87654321-4321-4321-4321-210987654321'
+    resourceGroup: 'staging-rg'
+    location: 'West US 2'
+    storageAccount: 'stagingstorage'
+    keyVault: 'staging-kv'
