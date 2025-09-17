@@ -1,10 +1,6 @@
 name: Continuous Integration
 
 on:
-  pull_request:
-    branches:
-      - main
-
   push:
     # Ignore the default branch, there is a seperate workflow for that
     branches-ignore:
@@ -14,8 +10,8 @@ permissions:
   contents: read
 
 jobs:
-  build-test-typescript:
-    name: TypeScript Tests
+  lint-test-job:
+    name: Lint and Test Actions
     runs-on: ubuntu-latest
 
     steps:
