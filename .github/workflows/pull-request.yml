@@ -22,7 +22,9 @@ jobs:
 
       - name: Detect changed actions
         id: detect
-        run: ./scripts/build-matrix-from-changes.sh
+        run: |
+          chmod +x ./scripts/build-matrix-from-changes.sh
+          ./scripts/build-matrix-from-changes.sh
 
   integration-test-job:
     name: Integration Tests
