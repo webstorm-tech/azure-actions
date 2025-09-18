@@ -10,6 +10,7 @@ permissions:
 
 jobs:
   detect-changes:
+    name: Detect Changes to Actions
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.detect.outputs.matrix }}
