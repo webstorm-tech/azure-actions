@@ -18,7 +18,9 @@
     "lint": "npx lerna run lint",
     "package": "npx lerna run package",
     "package:watch": "npx lerna run package:watch",
-    "test": "npx lerna run test"
+    "test": "npx lerna run test",
+    "prepare-publish": "node scripts/prepare-for-publish.js",
+    "prepare-publish:azure-config-loader": "node scripts/prepare-for-publish.js azure-config-loader"
   },
   "dependencies": {
     "@actions/core": "^1.11.1"
