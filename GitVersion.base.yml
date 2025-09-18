@@ -1,0 +1,19 @@
+mode: ContinuousDeployment
+branches:
+  main:
+    regex: ^main$
+    tag: ""
+    increment: Patch
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
+    tracks-release-branches: false
+    is-release-branch: true
+
+# Commit message incrementing overrides
+major-version-bump-message: '\+semver:\s?(breaking|major)|feat!:|BREAKING'
+minor-version-bump-message: '\+semver:\s?(feature|minor)|feat:'
+patch-version-bump-message: '\+semver:\s?(fix|patch)|fix:'
+no-bump-message: '\+semver:\s?(skip|none)'
+
+# Commit message format
+commit-message-incrementing: Enabled
