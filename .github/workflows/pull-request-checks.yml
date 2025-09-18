@@ -16,9 +16,7 @@ jobs:
         with:
           # Require scope to be action name or 'shared' or 'all'
           scopes: |
-            hello-world
-            hello-user
-            hello-time
+            azure-config-loader
             shared
             all
           
