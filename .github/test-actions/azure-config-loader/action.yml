@@ -15,7 +15,7 @@ runs:
       name: Verify Development Environment
       env:
         ENV: development
-        CONFIG_FILE: .github/config/test-environments.yml
+        CONFIG_FILE: ${{ github.workspace }}/.github/config/test-environments.yml
       shell: bash
       run: |
         cd .github/test-actions/azure-config-loader
