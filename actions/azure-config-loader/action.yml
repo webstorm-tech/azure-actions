@@ -1,30 +1,30 @@
-name: "Azure Config Loader"
-description: "Load Azure configuration from a file on disk for a specified environment"
+name: 'Azure Config Loader'
+description: 'Load Azure configuration from a file on disk for a specified environment'
 branding:
-  icon: "cloud"
-  color: "blue"
+  icon: 'cloud'
+  color: 'blue'
 
 inputs:
   environment:
-    description: "Environment name (development, staging, production)"
+    description: 'Environment name (development, staging, production)'
     required: true
   config-file:
-    description: "Path to configuration file"
+    description: 'Path to configuration file'
     required: false
-    default: ".github/config/azure-environments.yml"
+    default: '.github/config/azure-environments.yml'
 
 outputs:
   client-id:
-    description: "Azure Client ID"
+    description: 'Azure Client ID'
   tenant-id:
-    description: "Azure Tenant ID"
+    description: 'Azure Tenant ID'
   subscription-id:
-    description: "Azure Subscription ID"
+    description: 'Azure Subscription ID'
   resource-group:
-    description: "Azure Resource Group"
+    description: 'Azure Resource Group'
   location:
-    description: "Azure Location"
+    description: 'Azure Location'
 
 runs:
-  using: "node20"
-  main: "dist/main.js"
+  using: 'node20'
+  main: 'dist/main.js'
