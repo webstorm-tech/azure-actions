@@ -34,9 +34,9 @@ try {
         const actualOutputs = JSON.parse(outputsJson)
 
         const validations = [
-            { field: 'subscription-id', expected: expectedConfig.subscriptionId, actual: actualOutputs['subscription-id'] },
-            { field: 'resource-group', expected: expectedConfig.resourceGroup, actual: actualOutputs['resource-group'] },
-            { field: 'location', expected: expectedConfig.location, actual: actualOutputs['location'] }
+            { field: 'subscription-id', expected: expectedConfig['subscription-id'], actual: actualOutputs['subscription-id'] },
+            { field: 'resource-group', expected: expectedConfig['resource-group'], actual: actualOutputs['resource-group'] },
+            { field: 'location', expected: expectedConfig['location'], actual: actualOutputs['location'] }
         ]
 
         let errors = 0
