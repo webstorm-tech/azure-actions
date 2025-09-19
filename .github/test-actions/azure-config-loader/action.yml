@@ -23,11 +23,11 @@ runs:
         # Create outputs JSON for validation
         cat > outputs.json << EOF
         {
-          "subscription-id": "${{ steps.config-loader.outputs.subscription-id }}",
-          "resource-group": "${{ steps.config-loader.outputs.resource-group }}",
-          "location": "${{ steps.config-loader.outputs.location }}",
-          "client-id": "${{ steps.config-loader.outputs.client-id }}",
-          "tenant-id": "${{ steps.config-loader.outputs.tenant-id }}"
+          "subscription-id": "${{ steps.dev-test.outputs.subscription-id }}",
+          "resource-group": "${{ steps.dev-test.outputs.resource-group }}",
+          "location": "${{ steps.dev-test.outputs.location }}",
+          "client-id": "${{ steps.dev-test.outputs.client-id }}",
+          "tenant-id": "${{ steps.dev-test.outputs.tenant-id }}"
         }
         EOF
 
