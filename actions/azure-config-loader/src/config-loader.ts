@@ -1,7 +1,7 @@
-import * as fs from 'fs'
-import * as path from 'path'
-import * as yaml from 'js-yaml'
 import * as core from '@actions/core'
+import * as fs from 'fs'
+import { load } from 'js-yaml'
+import * as path from 'path'
 
 export interface AzureEnvironmentConfig {
   client_id: string
@@ -26,6 +26,23 @@ export class AzureConfigLoader {
     this.configFile = configFile
   }
 
+  private kebabToSnake(obj: unknown): unknown {
+    if (Array.isArray(obj)) {
+      return obj.map((item) => this.kebabToSnake(item))
+    }
+
+    if (obj !== null && typeof obj === 'object') {
+      const transformed: Record<string, unknown> = {}
+      for (const [key, value] of Object.entries(obj as Record<string, unknown>)) {
+        const snakeKey = key.replace(/-/g, '_')
+        transformed[snakeKey] = this.kebabToSnake(value)
+      }
+      return transformed
+    }
+
+    return obj
+  }
+
   /**
    * Load and parse the configuration file
    */
@@ -46,7 +63,8 @@ export class AzureConfigLoader {
       }
 
       const fileContents = fs.readFileSync(fullPath, 'utf8')
-      this.config = yaml.load(fileContents) as AzureConfigFile
+      const rawConfig = load(fileContents) as unknown
+      this.config = this.kebabToSnake(rawConfig) as AzureConfigFile
 
       if (!this.config || !this.config.environments) {
         throw new Error('Invalid configuration file format: missing "environments" key')
