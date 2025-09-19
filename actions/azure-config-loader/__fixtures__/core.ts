@@ -11,3 +11,10 @@ export const warning = jest.fn<typeof core.warning>()
 export const exportVariable = jest.fn<typeof core.exportVariable>()
 export const setSecret = jest.fn<typeof core.setSecret>()
 export const isDebug = jest.fn<typeof core.isDebug>()
+
+// Mock the summary object
+export const summary = {
+  addHeading: jest.fn().mockReturnThis(),
+  addTable: jest.fn().mockReturnThis(),
+  write: jest.fn().mockImplementation(() => Promise.resolve())
+}
