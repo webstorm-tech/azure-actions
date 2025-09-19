@@ -7,8 +7,6 @@ runs:
     - id: dev-test
       name: Run Development Environment
       uses: ./actions/azure-config-loader
-      env:
-        ACTIONS_STEP_DEBUG: true
       with:
         environment: development
         config-file: .github/config/test-environments.yml
