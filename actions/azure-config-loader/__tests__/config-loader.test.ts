@@ -93,7 +93,7 @@ describe('AzureConfigLoader', () => {
     }).not.toThrow()
   })
 
-  test('throws error for invalid client_id format', () => {
+  test('throws error for invalid client-id format', () => {
     const loader = new AzureConfigLoader('.github/config/azure-environments.yml')
     const invalidConfig = {
       client_id: 'invalid-client-id',
@@ -105,10 +105,10 @@ describe('AzureConfigLoader', () => {
 
     expect(() => {
       loader.validateConfig(invalidConfig)
-    }).toThrow('client_id must be a valid UUID format: invalid-client-id')
+    }).toThrow('client-id must be a valid UUID format: invalid-client-id')
   })
 
-  test('throws error for invalid tenant_id format', () => {
+  test('throws error for invalid tenant-id format', () => {
     const loader = new AzureConfigLoader('.github/config/azure-environments.yml')
     const invalidConfig = {
       client_id: TEST_IDS.DEV_CLIENT_ID,
@@ -120,10 +120,10 @@ describe('AzureConfigLoader', () => {
 
     expect(() => {
       loader.validateConfig(invalidConfig)
-    }).toThrow('tenant_id must be a valid UUID format: not-a-uuid')
+    }).toThrow('tenant-id must be a valid UUID format: not-a-uuid')
   })
 
-  test('throws error for invalid subscription_id format', () => {
+  test('throws error for invalid subscription-id format', () => {
     const loader = new AzureConfigLoader('.github/config/azure-environments.yml')
     const invalidConfig = {
       client_id: TEST_IDS.DEV_CLIENT_ID,
@@ -135,6 +135,6 @@ describe('AzureConfigLoader', () => {
 
     expect(() => {
       loader.validateConfig(invalidConfig)
-    }).toThrow('subscription_id must be a valid UUID format: 12345')
+    }).toThrow('subscription-id must be a valid UUID format: 12345')
   })
 })

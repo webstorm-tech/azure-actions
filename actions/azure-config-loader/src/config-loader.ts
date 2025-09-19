@@ -95,16 +95,16 @@ export class AzureConfigLoader {
     const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
     if (!uuidRegex.test(config.client_id)) {
-      throw new Error(`client_id must be a valid UUID format: ${config.client_id}`)
+      throw new Error(`client-id must be a valid UUID format: ${config.client_id}`)
     }
 
     if (!uuidRegex.test(config.tenant_id)) {
-      throw new Error(`tenant_id must be a valid UUID format: ${config.tenant_id}`)
+      throw new Error(`tenant-id must be a valid UUID format: ${config.tenant_id}`)
     }
 
     if (!uuidRegex.test(config.subscription_id)) {
       throw new Error(
-        `subscription_id must be a valid UUID format: ${config.subscription_id}`
+        `subscription-id must be a valid UUID format: ${config.subscription_id}`
       )
     }
   }
