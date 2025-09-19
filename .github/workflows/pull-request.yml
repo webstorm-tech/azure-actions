@@ -13,18 +13,92 @@ jobs:
     name: Detect Changes to Actions
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.detect.outputs.matrix }}
+      actions-matrix: ${{ steps.detect-actions.outputs.actions-matrix }}
+      has-changes: ${{ steps.detect-actions.outputs.has-changes }}
+      affected-count: ${{ steps.detect-actions.outputs.affected-count }}
 
     steps:
-      - uses: actions/checkout@v5
+      - name: Detect affected actions
+        id: detect-actions
+        uses: actions/github-script@v7
         with:
-          fetch-depth: 2
-
-      - name: Detect changed actions
-        id: detect
-        run: |
-          chmod +x ./scripts/build-matrix-from-changes.sh
-          ./scripts/build-matrix-from-changes.sh
+          script: |
+            // Get list of actions dynamically from the repo structure
+            const { data: actionsDir } = await github.rest.repos.getContent({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              path: 'actions',
+              ref: context.sha
+            });
+            
+            // Filter to get only directories (type === 'dir')
+            const actionNames = actionsDir
+              .filter(item => item.type === 'dir')
+              .map(item => item.name);
+            
+            core.info(`Found actions in monorepo: ${actionNames.join(', ')}`);
+            
+            // Get the PR number
+            const pr = context.payload.pull_request;
+            const prNumber = pr ? pr.number : context.issue.number;
+            
+            // Get all files changed in the PR (pagination-aware)
+            let files = [];
+            let page = 1;
+            while (true) {
+              const { data } = await github.rest.pulls.listFiles({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prNumber,
+                per_page: 100,
+                page
+              });
+              
+              if (data.length === 0) break;
+              files = files.concat(data.map(f => f.filename));
+              if (data.length < 100) break;
+              page++;
+            }
+            
+            core.info(`Files changed in PR: ${files.length}`);
+            
+            // Find which actions are affected
+            const affected = new Set();
+            
+            for (const file of files) {
+              // Check if file is in any action directory
+              for (const action of actionNames) {
+                if (file.startsWith(`actions/${action}/`)) {
+                  affected.add(action);
+                  core.info(`  ✓ ${action} affected by: ${file}`);
+                }
+              }
+              
+              // If shared files or workflows are changed, affect all actions
+              if (file.startsWith('shared/') || 
+                  file.startsWith('.github/workflows/')) {
+                core.info(`  Shared file changed (${file}), marking all actions as affected`);
+                actionNames.forEach(action => affected.add(action));
+                break; // No need to check more files if all are affected
+              }
+            }
+            
+            // Convert to array for matrix
+            const matrix = Array.from(affected);
+            
+            // Set outputs
+            core.setOutput('actions-matrix', JSON.stringify(matrix));
+            core.setOutput('has-changes', matrix.length > 0);
+            core.setOutput('affected-count', matrix.length);
+            
+            // Summary output
+            if (matrix.length === 0) {
+              core.info('No actions were affected by this PR');
+            } else if (matrix.length === actionNames.length) {
+              core.info(`All actions affected (${matrix.length} total)`);
+            } else {
+              core.info(`${matrix.length} action(s) affected: ${matrix.join(', ')}`);
+            }
 
   integration-test-job:
     name: Integration Tests
@@ -32,7 +106,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        action: ${{ fromJson(needs.detect-changes.outputs.matrix) }}
+        action: ${{ fromJson(needs.detect-changes.outputs.actions-matrix) }}
       fail-fast: false
 
     steps:
