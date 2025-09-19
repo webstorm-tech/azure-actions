@@ -103,9 +103,11 @@ export class AzureConfigLoader {
     const requiredFields = ['client_id', 'tenant_id', 'subscription_id']
     const missingFields = requiredFields.filter((field) => !config[field])
 
+    // Map snake_case to kebab-case for error messages
+    const toKebabCase = (s: string) => s.replace(/_/g, '-')
     if (missingFields.length > 0) {
       throw new Error(
-        `Missing required fields in configuration: ${missingFields.join(', ')}`
+        `Missing required fields in configuration: ${missingFields.map(toKebabCase).join(', ')}`
       )
     }
 
