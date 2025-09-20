@@ -1,0 +1,53 @@
+name: Test Azure Config Loader (Node.js)
+description: "Test the Azure Config Loader action using Node.js validation"
+
+inputs:
+  environment:
+    description: "Environment to test"
+    required: true
+    default: "development"
+  config-file:
+    description: "Path to config file"
+    required: false
+    default: ".github/config/test-environments.yml"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: "20"
+
+    - name: Install Dependencies
+      shell: bash
+      run: |
+        cd .github/test-actions/azure-config-loader
+        npm init -y
+        npm install yaml
+
+    - name: Run Azure Config Loader Action
+      id: config-loader
+      uses: ./actions/azure-config-loader
+      with:
+        environment: ${{ inputs.environment }}
+        config-file: ${{ inputs.config-file }}
+
+    - name: Validate Results with Node.js
+      shell: bash
+      run: |
+        cd .github/test-actions/azure-config-loader
+
+        # Create outputs JSON for validation
+        cat > outputs.json << EOF
+        {
+          "subscription-id": "${{ steps.config-loader.outputs.subscription-id }}",
+          "resource-group": "${{ steps.config-loader.outputs.resource-group }}",
+          "location": "${{ steps.config-loader.outputs.location }}",
+          "client-id": "${{ steps.config-loader.outputs.client-id }}",
+          "tenant-id": "${{ steps.config-loader.outputs.tenant-id }}"
+        }
+        EOF
+
+        # Run validation
+        node validate-config-loader.js "${{ inputs.environment }}" "../../../${{ inputs.config-file }}" "$(cat outputs.json)"

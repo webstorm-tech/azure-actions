@@ -6,6 +6,7 @@ on:
 
 jobs:
   check-title:
+    name: Check PR Title
     runs-on: ubuntu-latest
     steps:
       - name: Check PR Title Format
@@ -15,9 +16,7 @@ jobs:
         with:
           # Require scope to be action name or 'shared' or 'all'
           scopes: |
-            hello-world
-            hello-user
-            hello-time
+            azure-config-loader
             shared
             all
           

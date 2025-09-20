@@ -1,0 +1,33 @@
+{
+  "name": "azure-config-loader",
+  "version": "0.0.0",
+  "description": "Loads Azure configuration from a YAML file for GitHub Actions",
+  "author": "TJ Cappelletti <20914729+tj-cappelletti@users.noreply.github.com>",
+  "homepage": "https://github.com/webstorm-tech/azure-actions#readme",
+  "license": "MIT",
+  "main": "dist/main.js",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webstorm-tech/azure-actions.git"
+  },
+  "scripts": {
+    "ci-test": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 npx jest",
+    "coverage": "npx make-coverage-badge --output-path ../../badges/azure-config-loader.svg",
+    "lint": "npx eslint .",
+    "local-action": "npx @github/local-action . src/main.ts .env",
+    "package": "npx rollup --config ../../rollup.config.ts --configPlugin @rollup/plugin-typescript",
+    "package:watch": "npm run package -- --watch",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 npx jest",
+    "all": "npm run lint && npm run test && npm run coverage && npm run package"
+  },
+  "bugs": {
+    "url": "https://github.com/webstorm-tech/azure-actions/issues"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9"
+  }
+}

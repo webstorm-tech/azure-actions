@@ -1,0 +1,61 @@
+name: Test Azure Config Loader
+description: "Test the Azure Config Loader action with predefined scenarios"
+
+runs:
+  using: "composite"
+  steps:
+    - id: dev-test
+      name: Run Development Environment
+      uses: ./actions/azure-config-loader
+      with:
+        environment: development
+        config-file: .github/config/test-environments.yml
+
+    - id: verify-dev-test
+      name: Verify Development Environment
+      env:
+        ENV: development
+        CONFIG_FILE: ${{ github.workspace }}/.github/config/test-environments.yml
+      shell: bash
+      run: |
+        cd .github/test-actions/azure-config-loader
+
+        # Create outputs JSON for validation
+        cat > outputs.json << EOF
+        {
+          "subscription-id": "${{ steps.dev-test.outputs.subscription-id }}",
+          "resource-group": "${{ steps.dev-test.outputs.resource-group }}",
+          "location": "${{ steps.dev-test.outputs.location }}",
+          "client-id": "${{ steps.dev-test.outputs.client-id }}",
+          "tenant-id": "${{ steps.dev-test.outputs.tenant-id }}"
+        }
+        EOF
+
+        # Run validation
+        node validate-config-loader.js $ENV $CONFIG_FILE "$(cat outputs.json)"
+
+    - id: staging-test
+      name: Run Staging Environment
+      uses: ./actions/azure-config-loader
+      with:
+        environment: staging
+        config-file: .github/config/test-environments.yml
+
+    - id: invalid-test
+      name: Test Invalid Environment (Should Fail)
+      uses: ./actions/azure-config-loader
+      with:
+        environment: nonexistent
+        config-file: .github/config/test-environments.yml
+      continue-on-error: true
+
+    - id: verify-invalid-test
+      name: Verify Invalid Environment Test Failed
+      shell: bash
+      run: |
+        if [ "${{ steps.invalid-test.outcome }}" = "failure" ]; then
+          echo "✅ Invalid environment test correctly failed"
+        else
+          echo "❌ Invalid environment test should have failed but didn't"
+          exit 1
+        fi

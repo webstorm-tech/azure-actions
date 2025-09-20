@@ -1,0 +1,18 @@
+environments:
+  development:
+    client-id: "00000000-0000-0000-0000-000000000000"
+    tenant-id: "11111111-1111-1111-1111-111111111111"
+    subscription-id: "12345678-1234-1234-1234-123456789012"
+    resource-group: "test-rg"
+    location: "East US"
+    storage-account: "teststorage"
+    key-vault: "test-kv"
+
+  staging:
+    client-id: "33333333-3333-3333-3333-333333333333"
+    tenant-id: "11111111-1111-1111-1111-111111111111"
+    subscription-id: "87654321-4321-4321-4321-210987654321"
+    resource-group: "staging-rg"
+    location: "West US 2"
+    storage-account: "stagingstorage"
+    key-vault: "staging-kv"
